@@ -1,7 +1,7 @@
 // Vercel Serverless Function: /api/coach
 // Securely proxies coaching requests to Google Gemini, OpenAI, or Anthropic.
 // API keys are read from server environment variables and are NEVER sent to the browser.
-// Env vars: GEMINI_API_KEY (free), OPENAI_API_KEY, ANTHROPIC_API_KEY
+// Env vars: GEMINI_API_KEY, OPENAI_API_KEY, ANTHROPIC_API_KEY
 // Optional: AI_PROVIDER, GEMINI_MODEL, OPENAI_MODEL, ANTHROPIC_MODEL, COACH_SHARED_SECRET
 
 const DEFAULT_PROMPT =
@@ -69,7 +69,7 @@ export default async function handler(req, res) {
     const openaiKey = process.env.OPENAI_API_KEY;
     const anthropicKey = process.env.ANTHROPIC_API_KEY;
     const provider = (process.env.AI_PROVIDER || (geminiKey ? "google" : openaiKey ? "openai" : anthropicKey ? "anthropic" : "")).toLowerCase();
-    if (!provider) return res.status(500).json({ error: "No AI provider configured. Add GEMINI_API_KEY (free), OPENAI_API_KEY, or ANTHROPIC_API_KEY in Vercel." });
+    if (!provider) return res.status(500).json({ error: "No AI provider configured. Add GEMINI_API_KEY, OPENAI_API_KEY, or ANTHROPIC_API_KEY in Vercel." });
 
     let summary = "", finishReason = "";
 
